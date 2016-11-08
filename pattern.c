@@ -262,7 +262,9 @@ vg_exec_context_calc_address(vg_exec_context_t *vxcp)
 				 vxcp->vxc_bnctx);
 	SHA256(eckey_buf, len, hash1);
 	RIPEMD160(hash1, sizeof(hash1), hash2);
-	memcpy(&vxcp->vxc_binres[1],
+//	memcpy(&vxcp->vxc_binres[1],
+//	       hash2, 20);
+	memcpy(&vxcp->vxc_binres[2],
 	       hash2, 20);
 	EC_POINT_free(pubkey);
 }
@@ -1475,7 +1477,8 @@ vg_prefix_test(vg_exec_context_t *vxcp)
 	 * check code.
 	 */
 
-	BN_bin2bn(vxcp->vxc_binres, 25, &vxcp->vxc_bntarg);
+//	BN_bin2bn(vxcp->vxc_binres, 25, &vxcp->vxc_bntarg);
+	BN_bin2bn(vxcp->vxc_binres, 26, &vxcp->vxc_bntarg);
 
 research:
 	vp = vg_prefix_avl_search(&vcpp->vcp_avlroot, &vxcp->vxc_bntarg);
@@ -1725,17 +1728,21 @@ vg_regex_test(vg_exec_context_t *vxcp)
 	BN_init(&bnrem);
 
 	/* Hash the hash and write the four byte check code */
-	SHA256(vxcp->vxc_binres, 21, hash1);
+//	SHA256(vxcp->vxc_binres, 21, hash1);
+	SHA256(vxcp->vxc_binres, 22, hash1);
 	SHA256(hash1, sizeof(hash1), hash2);
-	memcpy(&vxcp->vxc_binres[21], hash2, 4);
+//	memcpy(&vxcp->vxc_binres[21], hash2, 4);
+	memcpy(&vxcp->vxc_binres[22], hash2, 4);
 
 	bn = &vxcp->vxc_bntmp;
 	bndiv = &vxcp->vxc_bntmp2;
 
-	BN_bin2bn(vxcp->vxc_binres, 25, bn);
+//	BN_bin2bn(vxcp->vxc_binres, 25, bn);
+	BN_bin2bn(vxcp->vxc_binres, 26, bn);
 
 	/* Compute the complete encoded address */
-	for (zpfx = 0; zpfx < 25 && vxcp->vxc_binres[zpfx] == 0; zpfx++);
+//	for (zpfx = 0; zpfx < 25 && vxcp->vxc_binres[zpfx] == 0; zpfx++);
+	for (zpfx = 0; zpfx < 26 && vxcp->vxc_binres[zpfx] == 0; zpfx++);
 	p = sizeof(b58) - 1;
 	b58[p] = '\0';
 	while (!BN_is_zero(bn)) {
