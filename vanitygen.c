@@ -98,7 +98,9 @@ vg_thread_loop(void *arg)
 	rekey_at = 0;
 	nbatch = 0;
 	vxcp->vxc_key = pkey;
-	vxcp->vxc_binres[0] = vcp->vc_addrtype;
+//	vxcp->vxc_binres[0] = vcp->vc_addrtype;
+	vxcp->vxc_binres[0] = vcp->vc_addrtype>>8;
+	vxcp->vxc_binres[1] = vcp->vc_addrtype;
 	c = 0;
 	output_interval = 1000;
 	gettimeofday(&tvstart, NULL);
@@ -201,7 +203,8 @@ vg_thread_loop(void *arg)
 			assert(len == 65);
 
 			SHA256(hash_buf, hash_len, hash1);
-			RIPEMD160(hash1, sizeof(hash1), &vxcp->vxc_binres[1]);
+//			RIPEMD160(hash1, sizeof(hash1), &vxcp->vxc_binres[1]);
+			RIPEMD160(hash1, sizeof(hash1), &vxcp->vxc_binres[2]);
 
 			switch (test_func(vxcp)) {
 			case 1:
@@ -331,8 +334,10 @@ version, name);
 int
 main(int argc, char **argv)
 {
-	int addrtype = 0;
-	int scriptaddrtype = 5;
+//	int addrtype = 0;
+	int addrtype = 0x1cb8;
+//	int scriptaddrtype = 5;
+	int scriptaddrtype = 0x1cbd;
 	int privtype = 128;
 	int pubkeytype;
 	enum vg_format format = VCF_PUBKEY;
@@ -390,9 +395,11 @@ main(int argc, char **argv)
 			scriptaddrtype = -1;
 			break;
 		case 'T':
-			addrtype = 111;
+//			addrtype = 111;
+			addrtype = 0x1d25;
 			privtype = 239;
-			scriptaddrtype = 196;
+//			scriptaddrtype = 196;
+			scriptaddrtype = 0x1cba;
 			break;
 		case 'X':
 			addrtype = atoi(optarg);
