@@ -745,9 +745,11 @@ get_prefix_ranges(int addrtype, const char *pfx, BIGNUM **result,
 
 	/* Power-of-two ceiling and floor values based on leading 1s */
 	BN_clear(&bntmp);
-	BN_set_bit(&bntmp, 200 - (zero_prefix * 8));
+//	BN_set_bit(&bntmp, 200 - (zero_prefix * 8));
+	BN_set_bit(&bntmp, 208 - (zero_prefix * 8));
 	BN_sub(&bnceil, &bntmp, BN_value_one());
-	BN_set_bit(&bnfloor, 192 - (zero_prefix * 8));
+//	BN_set_bit(&bnfloor, 192 - (zero_prefix * 8));
+	BN_set_bit(&bnfloor, 200 - (zero_prefix * 8));
 
 	bnlow = BN_new();
 	bnhigh = BN_new();
@@ -841,8 +843,10 @@ get_prefix_ranges(int addrtype, const char *pfx, BIGNUM **result,
 
 	/* Limit the prefix to the address type */
 	BN_clear(&bntmp);
-	BN_set_word(&bntmp, addrtype);
-	BN_lshift(&bntmp2, &bntmp, 192);
+//	BN_set_word(&bntmp, addrtype);
+	BN_set_word(&bntmp, addrtype>>8);
+//	BN_lshift(&bntmp2, &bntmp, 192);
+	BN_lshift(&bntmp2, &bntmp, 200);
 
 	if (check_upper) {
 		if (BN_cmp(&bntmp2, bnhigh2) > 0) {
@@ -871,8 +875,10 @@ get_prefix_ranges(int addrtype, const char *pfx, BIGNUM **result,
 		BN_copy(bnlow, &bntmp2);
 	}
 
-	BN_set_word(&bntmp, addrtype + 1);
-	BN_lshift(&bntmp2, &bntmp, 192);
+//	BN_set_word(&bntmp, addrtype + 1);
+	BN_set_word(&bntmp, (addrtype>>8) + 1);
+//	BN_lshift(&bntmp2, &bntmp, 192);
+	BN_lshift(&bntmp2, &bntmp, 200);
 
 	if (check_upper) {
 		if (BN_cmp(&bntmp2, bnlow2) < 0) {
