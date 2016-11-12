@@ -38,8 +38,8 @@
 #include <openssl/pem.h>
 #include <openssl/pkcs12.h>
 
-#include "pattern.h"
-#include "util.h"
+#include "pattern_z.h"
+#include "util_z.h"
 
 const char *vg_b58_alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
