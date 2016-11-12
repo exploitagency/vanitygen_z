@@ -33,8 +33,8 @@
 
 #include <pcre.h>
 
-#include "pattern.h"
-#include "util.h"
+#include "pattern_z.h"
+#include "util_z.h"
 #include "avl.h"
 
 
