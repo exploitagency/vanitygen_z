@@ -1,3 +1,10 @@
+Vanitygen_z is a quick and dirty fork of vanitygen that focuses on 
+generating Zcash t1 and t3 type addresses.  
+
+Below is the original text of the vanitygen README:
+
+===================================================
+
 I'd like to present a standalone command line vanity address generator 
 called vanitygen.
 
