@@ -4,6 +4,7 @@
 
 The purpose of this fork is to produce a new version of vanitygen that supports Zcash address generation.  
 
-As of the 13th November 2016, only the bare minimum amount of testing has been done.  
+As of the 13th November 2016, only the bare minimum amount of testing on Ubuntu 16.10 has been done.  
+To be clear: There has been >>NO testing<< on Windows, MacOS or even other Linux distributions.  
 
 Your feedback here or via https://forum.z.cash/users/voluntary would be appreciated.  
