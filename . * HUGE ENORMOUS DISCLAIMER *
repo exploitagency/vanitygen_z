@@ -1,9 +1,9 @@
- *** THIS FORK OF VANITYGEN IS *NOT* TO BE TRUSTED ***
+*** THIS FORK OF VANITYGEN IS *NOT* TO BE TRUSTED ***
  - EXPECT ERRORS
  - VERIFY ANY AND ALL OUTPUT FROM THIS PROGRAM THAT ISN'T IMMEDIATELY DISCARDED
- 
- The purpose of this fork is to produce a new version of vanitygen that supports Zcash address generation.  
- 
- Due to remaining bitcoin specific program logic, Zcash address generation is limited to when the program is initiated such as this: 
- 
-  > ./vanitygen -r abc
+
+The purpose of this fork is to produce a new version of vanitygen that supports Zcash address generation.  
+
+As of the 13th November 2016, only the bare minimum amount of testing has been done.  
+
+Your feedback here or via https://forum.z.cash/users/voluntary would be appreciated.  
