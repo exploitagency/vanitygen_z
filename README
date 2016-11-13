@@ -1,6 +1,12 @@
 Vanitygen_z is a quick and dirty fork of vanitygen that focuses on 
 generating Zcash t1 and t3 type addresses.  
 
+Before compiling on Ubuntu 16.10, OpenSSL and the Perl Compatible 
+Regular Expression libraries are needed.  
+
+ > sudo apt-get install libssl-dev
+ > sudo apt-get install libpcre3 libpcre3dev
+
 Below is the original text of the vanitygen README:
 
 ===================================================
