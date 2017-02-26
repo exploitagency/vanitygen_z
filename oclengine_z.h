@@ -19,7 +19,7 @@
 #if !defined (__VG_OCLENGINE_H__)
 #define __VG_OCLENGINE_H__
 
-#include "pattern.h"
+#include "pattern_z.h" 
 
 typedef struct _vg_ocl_context_s vg_ocl_context_t;
 

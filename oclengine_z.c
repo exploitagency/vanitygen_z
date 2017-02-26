@@ -37,9 +37,9 @@
 #include <CL/cl.h>
 #endif
 
-#include "oclengine.h"
-#include "pattern.h"
-#include "util.h"
+#include "oclengine_z.h"
+#include "pattern_z.h" 
+#include "util_z.h" 
 
 
 #define MAX_SLOT 2
@@ -1454,7 +1454,7 @@ vg_ocl_gethash_check(vg_ocl_context_t *vocp, int slot)
 	round = vocp->voc_ocl_cols * vocp->voc_ocl_rows;
 
 	for (i = 0; i < round; i++, vxcp->vxc_delta++) {
-		memcpy(&vxcp->vxc_binres[1],
+		memcpy(&vxcp->vxc_binres[2],
 		       ocl_hashes_out + (20*i),
 		       20);
 
@@ -1550,7 +1550,7 @@ vg_ocl_prefix_check(vg_ocl_context_t *vocp, int slot)
 	vg_test_func_t test_func = vcp->vc_test;
 	uint32_t *ocl_found_out;
 	uint32_t found_delta;
-	int orig_delta, tablesize;
+//	int orig_delta, tablesize;
 	int res = 0;
 
 	/* Retrieve the found indicator */
@@ -1566,13 +1566,13 @@ vg_ocl_prefix_check(vg_ocl_context_t *vocp, int slot)
 
 	if (found_delta != 0xffffffff) {
 		/* GPU code claims match, verify with CPU version */
-		orig_delta = vxcp->vxc_delta;
+//		orig_delta = vxcp->vxc_delta;
 		vxcp->vxc_delta += found_delta;
 		vg_exec_context_calc_address(vxcp);
 
 		/* Make sure the GPU produced the expected hash */
 		res = 0;
-		if (!memcmp(vxcp->vxc_binres + 1,
+		if (!memcmp(vxcp->vxc_binres + 2,
 			    ocl_found_out + 2,
 			    20)) {
 			res = test_func(vxcp);
@@ -1582,16 +1582,22 @@ vg_ocl_prefix_check(vg_ocl_context_t *vocp, int slot)
 			 * The match was not found in
 			 * the pattern list.  Hmm.
 			 */
-			tablesize = ocl_found_out[2];
-			fprintf(stderr, "Match idx: %d\n", ocl_found_out[1]);
-			fprintf(stderr, "CPU hash: ");
-			fdumphex(stderr, vxcp->vxc_binres + 1, 20);
-			fprintf(stderr, "GPU hash: ");
-			fdumphex(stderr,
-				 (unsigned char *) (ocl_found_out + 2), 20);
-			fprintf(stderr, "Found delta: %d "
-			       "Start delta: %d\n",
-			       found_delta, orig_delta);
+//			tablesize = ocl_found_out[2];
+			fprintf(stderr, " Something went wrong...\n");
+			fprintf(stderr, " Please try again, or if error persists\n");
+			fprintf(stderr, " then please input a different pattern...\n");
+
+//			exit(-1);
+
+//			fprintf(stderr, "Match idx: %d\n", ocl_found_out[1]);
+//			fprintf(stderr, "CPU hash: ");
+//			fdumphex(stderr, vxcp->vxc_binres + 2, 20);
+//			fprintf(stderr, "GPU hash: ");
+//			fdumphex(stderr,
+//				 (unsigned char *) (ocl_found_out + 2), 20);
+//			fprintf(stderr, "Found delta: %d "
+//			       "Start delta: %d\n",
+//			       found_delta, orig_delta);
 			res = 1;
 		}
 	} else {
@@ -2001,7 +2007,12 @@ vg_opencl_loop(vg_exec_context_t *arg)
 
 	npoints = 0;
 	rekey_at = 0;
-	vxcp->vxc_binres[0] = vcp->vc_addrtype;
+//  vxcp->vxc_binres[0] = vcp->vc_addrtype; 
+	vxcp->vxc_binres[0] = vcp->vc_addrtype>>8;  // Zcash t_addresses have  
+	vxcp->vxc_binres[1] = vcp->vc_addrtype;    // a two byte prefix.   
+	c = 0;            // Luckily, binres[] can  
+	output_interval = 1000;        // take a few extra bytes.   
+
 
 	if (pthread_create(&vocp->voc_ocl_thread, NULL,
 			   vg_opencl_thread, vocp))

@@ -25,12 +25,11 @@
 #include <openssl/bn.h>
 #include <openssl/rand.h>
 
-#include "oclengine.h"
-#include "pattern.h"
-#include "util.h"
-
-
-const char *version = VANITYGEN_VERSION;
+#include "oclengine_z.h"
+#include "pattern_z.h" 
+#include "util_z.h" 
+ 
+const char *version = VANITYGEN_Z_VERSION; 
 const int debug = 0;
 
 
@@ -57,9 +56,9 @@ usage(const char *name)
 "-i            Case-insensitive prefix search\n"
 "-k            Keep pattern and continue search after finding a match\n"
 "-1            Stop after first match\n"
-"-N            Generate namecoin address\n"
-"-T            Generate bitcoin testnet address\n"
-"-X <version>  Generate address with the given version\n"
+//"-N            Generate namecoin address\n"
+//"-T            Generate bitcoin testnet address\n"
+//"-X <version>  Generate address with the given version\n"
 "-e            Encrypt private keys, prompt for password\n"
 "-E <password> Encrypt private keys with <password> (UNSAFE)\n"
 "-p <platform> Select OpenCL platform\n"
@@ -86,8 +85,10 @@ version, name);
 int
 main(int argc, char **argv)
 {
-	int addrtype = 0;
-	int privtype = 128;
+//  int addrtype = 0; 
+	int addrtype = 0x1cb8;    // Zcash t_address two-byte prefix value.   
+	int privtype = 128;    // Zcash uses the same private key prefix as bitcoin.   
+
 	int regex = 0;
 	int caseinsensitive = 0;
 	int opt;
@@ -141,17 +142,14 @@ main(int argc, char **argv)
 			only_one = 1;
 			break;
 		case 'N':
-			addrtype = 52;
-			privtype = 180;
-			break;
+			printf(" >> vanitygen_z has not retained this option <<\n");
+			return(1);
 		case 'T':
-			addrtype = 111;
-			privtype = 239;
-			break;
+			printf(" >> vanitygen_z has not retained this option <<\n");
+			return(1);
 		case 'X':
-			addrtype = atoi(optarg);
-			privtype = 128 + addrtype;
-			break;
+			printf(" >> vanitygen_z has not retained this option <<\n");
+			return(1);
 		case 'e':
 			prompt_password = 1;
 			break;

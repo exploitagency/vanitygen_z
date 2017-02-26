@@ -122,3 +122,6 @@ Version 0.01, released November 13, 2016:
 	- OpenCL files have been removed for the time being.  
 	- Bug: Input strings beginning with 't' are required but impossible 
 	  input strings such as 'tabc' are accepted.  
+
+Version 0.02, released Feb 25, 2017:
+	- Add oclvanitygen support

@@ -38,7 +38,7 @@
 #endif
 
 //#define VANITYGEN_VERSION "0.22"
-#define VANITYGEN_Z_VERSION "0.01"
+#define VANITYGEN_Z_VERSION "0.02"
 
 typedef struct _vg_context_s vg_context_t;
 
