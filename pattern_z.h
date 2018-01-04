@@ -54,10 +54,10 @@ struct _vg_exec_context_s {
 	EC_KEY				*vxc_key;
 	int				vxc_delta;
 	unsigned char			vxc_binres[28];	// This is the original array size 
-	BIGNUM				vxc_bntarg;	// of binres and it's why vanitygen_z  
-	BIGNUM				vxc_bnbase;	// can 'get away' with changing 
-	BIGNUM				vxc_bntmp;	// offsets within it so easily as 
-	BIGNUM				vxc_bntmp2;	// there are some bytes to spare.  
+	BIGNUM				*vxc_bntarg;	// of binres and it's why vanitygen_z  
+	BIGNUM				*vxc_bnbase;	// can 'get away' with changing 
+	BIGNUM				*vxc_bntmp;	// offsets within it so easily as 
+	BIGNUM				*vxc_bntmp2;	// there are some bytes to spare.  
 
 	vg_exec_context_threadfunc_t	vxc_threadfunc;
 	pthread_t			vxc_pthread;
